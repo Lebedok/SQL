@@ -269,4 +269,133 @@ where hire_date=(select min(hire_date) from employees);
 select sum(salary)from employees;
 
 
+---Print all first_name and last_name from employee table
+-- who has at least 3 'a' in their first name or 2 'a' in their last name 
 
+select first_name,last_name from employees
+where first_name like '%a%a%'or  last_name like '%a%a%';
+
+
+
+--- DISTINCT keyword -----
+/* we use distinct to get unique value from the table*/
+
+select distinct (first_name) from employees;
+
+-- print count of all unique region IDs under countries table
+select count (distinct(region_id)) from countries;
+
+
+----  GROUP BY----
+/*Group by is used to group the result in query. Group by mostly used with multi row functions.
+If you have where keyword it will com brfore the group by */
+
+select count(country_name)  from countries 
+group by region_id;
+
+-- Print number of employees under same manager
+select manager_id, count(first_name) from employees
+group by manager_id;
+
+select first_name from employees
+where employee_id=100;
+
+select first_name from employees
+where manager_id=100;
+
+
+-- print max salary for each department 
+select department_id, max (salary) from employees
+group by department_id; 
+
+
+select department_name from departments
+where department_id=100;
+
+select * from jobs;
+
+
+-- display min salary for each department_id who has min salary more than 5000
+select department_id, min (salary) from employees
+where salary > 5000
+group by department_id;
+
+
+-- find out sum of all salaries for each job;
+select job_id, sum(salary) from employees
+group by job_id;
+
+ select max(sum) from (select job_id, sum(salary) as sum from employees
+ group by job_id);
+ 
+ 
+ -- GROUP EMPLOYEES BY THEIR FIRST_NAME'S FIRST LETTER AND FIND OUT NUMBER OF EMPLOYEES FOR EACH GROUP;
+ 
+ select count (first_name) from employees
+ group by substr(first_name,1,1);
+ 
+ 
+ 
+ 
+ ---HAVING KEYWORD----
+ /* We can use having keyword when we try to use the multi - row functions the conditional statement
+ Where keyword will not work with multi - row functions.  WHERE keyword not working in multi-row function in conditional statements, HAVING is working */
+ 
+ select round(avg (salary)) from employees
+ group by department_id
+ having avg(salary) > 7000;
+ 
+ 
+ -- find out count of employees under same manager and exclude the manager with null values
+ 
+ select count (employee_id) from employees
+ group by manager_id
+ having manager_id is not null;
+ 
+ -- display the manager ID and salary of lowest paid employees for each manager,
+ -- exclude anyone with manager_id is null and exclude any group where the min salary is less $6000
+ select manager_id, min (salary) from employees
+ group by manager_id
+ having manager_id is not null and min(salary)>6000
+ order by manager_id;
+ 
+ 
+ 
+ -- find out name of person with max salary 
+ 
+ select first_name from employees
+ where salary=(select max(salary) from employees);
+ 
+ 
+ -- find out employees first_name and salary who makes more than employee who has employee_id 121
+ select first_name, salary from employees
+ where salary > (select salary from employees
+ where employee_id=121);
+ 
+ --find out employees first_name, department_id who works in same department
+ --with employee who has employee_id 150;
+ 
+ select department_id from employees
+ where employee_id=150;
+ 
+ select first_name, department_id from employees
+ where department_id= (select department_id from employees
+ where employee_id=150); 
+ 
+ 
+ --- How do you find second largest salary?
+ 
+ select * from employees order by salary;
+ 
+ select max (salary) from employees
+ where salary < (select max(salary) from employees);
+ 
+ 
+ --  how do you find the name of the employee who is making second largest salary?
+ select first_name from employees
+ where salary=(select max(salary) from employees
+ where salary<(select max(salary) from employees));
+ 
+ 
+ 
+ 
