@@ -100,7 +100,7 @@ select first_name , commission_pct from employees
 order by commission_pct asc, first_name desc;
 
 
--- capital
+-- Starts with capital 'A' 
 select * from employees
 where first_name like 'A%'
 order by first_name;
@@ -154,7 +154,7 @@ select lower(first_name) from employees;
 
 select initcap (lower(email)) from employees;
 
-select initcap(email)from employees;
+select initcap(email)from employees;  
 
 select upper(department_id) from employees;
 
