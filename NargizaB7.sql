@@ -395,6 +395,72 @@ group by job_id;
  select first_name from employees
  where salary=(select max(salary) from employees
  where salary<(select max(salary) from employees));
+               
+               
+   --- GROUP BY: Find out number of postal code under same country from locations table
+ select country_id,  count (postal_code) from locations
+ group by country_id;
+ 
+ 
+ -- HAVING: display number of postal code under same countries from locations table
+ --if their count is more than 2 
+ 
+ select country_id, count (postal_code) from locations
+ group by country_id
+ having count (postal_code)>2;
+ 
+ 
+ ---SUBQUARY ---
+ -- dispaly all the employees who is making more than avarage salary
+ select first_name, salary from employees
+ where salary >  (select avg (salary)from employees)
+ order by salary;
+ 
+ --- display all the cities that has same state with Siettle
+select city from locations
+where state_province = (select state_province from locations where city ='Seattle');
+ 
+ 
+ 
+ ---  Dispaly the employee name who is making second lowest salary
+ select * from employees order by salary;
+ 
+ 
+ select min (salary) from employees
+ where salary >(select min (salary) from employees);
+ 
+ 
+ ---  ROWNUM --- 
+ -- we can use rownum with where clause in the query. It will be used with bigger than (>) or less than symbol (<). 
+ 
+ -- find out 5th lowest salary  
+ select max(salary) from (select distinct (salary) from employees
+ order by salary)
+ where rownum < 11;
+
+               
+select * from employees
+where salary =  (select max(salary) from (select distinct (salary) from employees
+ order by salary)
+ where rownum < 6);
+ 
+ 
+ --find out 5th largest salary 
+ select * from employees order by salary desc;
+ 
+ select * from employees
+ where salary =( select min (salary) from (select distinct(salary) from employees 
+ order  by salary desc)
+ where rownum < 6);
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
  
  
  
