@@ -452,6 +452,21 @@ where salary =  (select max(salary) from (select distinct (salary) from employee
  where salary =( select min (salary) from (select distinct(salary) from employees 
  order  by salary desc)
  where rownum < 6);
+          
+               
+ 
+ --- find out department name for Neena
+ select department_name from departments 
+ where department_id = (select department_id from employees
+ where first_name = 'Neena');
+ 
+ 
+ 
+  select* from departments 
+ where department_id = (select department_id from employees
+ where first_name = 'Neena');
+               
+               
  
  
  
