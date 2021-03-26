@@ -468,7 +468,56 @@ where salary =  (select max(salary) from (select distinct (salary) from employee
                
                
  
+ -------- JOINS-------
+select e.first_name, e.department_id, d.department_name 
+from employees e join departments d
+on e.department_id = d.department_id;
+
+select first_name from employees
+where department_id is null;
+
+select department_name from departments
+where department_id is null;
+
+-- Print country name, country_id and  region name for each country 
+select country_name, country_id, region_name 
+from countries c join regions r
+on c.region_id = r.region_id;
+
+
+-- Print last_name, email, job title for each employee 
+--INNER JOIN - it givesonly  matching data from both tables
+select last_name, email, job_title
+from jobs j inner join employees e
+on e.job_id =  j.job_id;
+
+
+--RIGHT JOIN. matching data from both table and non matching data from rigth side of the table 
+select last_name, email, job_title
+from jobs j  right join employees e
+on e.job_id =  j.job_id;
+
+
+select first_name, email, department_name 
+from departments d right outer join employees e
+on d.department_id = e.department_id; 
+
+
+--- FULL OUTER JOIN, It gives matching data and non matching data from both table 
+select first_name, email, department_name 
+from departments d full outer join employees e
+on d.department_id = e.department_id; 
  
+ 
+ --- LEFT JOIN matching data from both table and non matching date from left side of the table 
+select first_name, email, department_name 
+from departments d left outer join employees e
+on d.department_id = e.department_id; 
+
+
+---NATUTRAL JOIN 
+select country_name, country_id, region_name 
+from countries c natural join regions r;
  
  
  
