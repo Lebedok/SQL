@@ -518,9 +518,155 @@ on d.department_id = e.department_id;
 ---NATUTRAL JOIN 
 select country_name, country_id, region_name 
 from countries c natural join regions r;
+               
+               
  
- 
- 
+ --- Print all the department name and where they are located 
+select department_name,manager_id, d.location_id, city, state_province
+from locations l join departments d
+on d.location_id = l.location_id;
+
+
+select department_name,manager_id, d.location_id, city, state_province
+from departments d join locations l
+on d.location_id = l.location_id;
+
+select department_name,manager_id, d.location_id, city, state_province
+from locations l left outer join departments d
+on d.location_id = l.location_id
+where d.location_id is null;
+
+select department_name,manager_id, d.location_id, city, state_province
+from locations l RIGHT outer join departments d
+on d.location_id = l.location_id
+where l.location_id is null;
+
+--- Version #2
+select department_name,manager_id, d.location_id, city, state_province
+from locations l,  departments d
+where d.location_id = l.location_id;
+
+-- Version#3
+select department_name,manager_id, location_id, city, state_province
+from locations natural join  departments; 
+
+-- Version #4
+
+select department_name,manager_id,location_id, city, state_province
+from locations join   departments 
+using(location_id);
+
+
+--- INDIRECT JOIN ---
+select first_name , department_name, city, state_province
+from employees e join departments d
+on e.department_id = d.department_id
+join locations l
+on d.location_id = l.location_id;
+
+select state_province, count(*) from 
+(select first_name , department_name, city, state_province
+from employees e join departments d
+on e.department_id = d.department_id
+join locations l
+on d.location_id = l.location_id)
+group by state_province;
+
+
+-- Print last_name, department_name, city, country, country_name, region name for each employee
+select last_name, department_name, city, country_name,region_name
+from employees e join departments d
+on e.department_id=d.department_id
+join locations l
+on d.location_id=l.location_id
+join countries c
+on l.country_id=c.country_id
+join regions r
+on r.region_id=c.region_id;
+
+
+
+---- SELF JOIN ----
+select * from employees;
+
+-- manager_id of the employee should be equals to employee_id of manager
+select e.first_name as employee_firstname, m.first_name as manager_firstname
+from employees e join employees m
+on e.manager_id = m.employee_id;
+
+
+-- How to get count of employees of manager 
+select manager_firstname, COUNT(*) as countemp from
+(select e.first_name as employee_firstname, m.first_name as manager_firstname
+from employees e join employees m
+on e.manager_id = m.employee_id)
+group by manager_firstname
+order by countemp asc;
+
+
+
+-------------- SET OPERATORS-----------------
+--- UNION --
+select first_name, last_name, department_id
+from employees
+where department_id in (10,20,50)
+UNION
+select first_name, last_name, department_id
+from employees
+where department_id in (20, 30, 50)
+order by department_id;
+
+
+select first_name, last_name, department_id
+from employees
+where department_id in (10,20)
+UNION All
+select first_name, last_name, department_id
+from employees
+where department_id in (10, 20, 30)
+order by department_id;
+
+
+--- print employee first_name, hire_date and salary where salary range is 4000 to 7000 and 6000 to 9000
+select first_name, hire_date, salary
+from employees
+WHERE salary between 4000 and 7000
+UNION 
+select first_name, hire_date, salary
+from employees
+WHERE salary between 6000 and 9000
+order by salary;
+
+----- MINUS - It will give the result from first query which is not exists in second query 
+
+select first_name, hire_date, salary
+from employees
+WHERE salary between 4000 and 7000
+MINUS
+select first_name, hire_date, salary
+from employees
+WHERE salary between 6000 and 9000
+order by salary;
+
+----INTERSECT --will give the data which is exist in both query. 6000 - 7000
+select first_name, hire_date, salary
+from employees
+WHERE salary between 4000 and 7000
+INTERSECT
+select first_name, hire_date, salary
+from employees
+WHERE salary between 6000 and 9000
+order by salary;
+
+
+---- CREATE STUDENT TABLE----
+create table students(student_id  number(5), full_name varchar(20), class_id number(3));
+
+create table class (class_id number(3), class_name varchar(10));
+
+insert into students values(12345, 'Chopa',55);
+
+select *from students; 
  
 
 
