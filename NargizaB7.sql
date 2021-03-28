@@ -667,8 +667,33 @@ create table class (class_id number(3), class_name varchar(10));
 insert into students values(12345, 'Chopa',55);
 
 select *from students; 
- 
-
+                                                           
+                                                           
+ select * from students; 
+insert into students values(12346, 'Ridvan', 55);
+insert into students values(12347, 'Zhazira', 55);
+insert into students values(12348, 5444, 55);
+insert into students values(12348, 'Ramis', 57);
+insert into class values(55, 'selenium'); 
+insert into class values(56, 'java'); 
+insert into class values(57, 'sql'); 
+select * from students; 
+select * from class; 
+--- TASK: print full name and class name for each student. 
+select full_name, class_name
+from students natural join class; 
+select * from students;
+update students set student_id=12346, full_name='Joe'
+where student_id=12345; 
+delete students where student_id=12348;
+insert into students values(12346, 'Ridvan', 55);
+insert into students values(12348, 'Ilker', 55);
+insert into students values(12349, 'Chopa', 56);
+insert into students values(12350, 'Joe', 56);
+delete students where student_id=12348;
+select full_name, class_name
+from students natural join class;
+-- count of students for each class.
 
 
  
