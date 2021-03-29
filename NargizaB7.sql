@@ -698,5 +698,51 @@ from students natural join class;
 
  
  
+--- Create table: NUMBER, INT, DECIMAL
+create table customers(
+ID int not null, 
+FIRST_NAME VARCHAR (20),
+LAST_NAME VARCHAR(10),
+ADDRESS CHAR(15),
+PRIMARY KEY(ID)
+);
+
+create table orders(
+ORDER_ID number (5) not null,
+CUSTOMER_ID int not null,
+PRODUCT_ID number (3) not null,
+quantity number(1),
+primary key (order_id));
+
+
+create table PRODUCTS(
+product_id number (3)not null,
+product_name varchar (10),
+price decimal (4,2),
+primary key (product_id)
+);
+
+insert into customers values (123, 'David' , 'Hunt','2000 E Devon');
+insert into customers values (124, 'Kushal', 'Jain' , '2100 W Randolf');
+
+select * from customers;
+commit;
+
+insert into orders values(1,123,450,3);
+insert into orders values(2,124,450,5);
+insert into orders values(3,123,451,2);
+insert into orders values(4,123,450,1);
+select*from orders;
+
+
+insert into products values(450, 'Pen', 4.5);
+insert into products values(451,'Mug', 2.9);
+insert into products values(452, 'Book',19.99);
+
+select * from customers;
+select * from orders;
+select *from products;
+
+
  
  
