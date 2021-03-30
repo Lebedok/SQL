@@ -745,4 +745,48 @@ select *from products;
 
 
  
+-- print customer_id, quantity and product_name
+-- and also include the products that is not available under the product table
+-- I have an order for the product but this product is not available under the products table 
+
+select * from orders;
+select * from products;
+
+select customer_id, quantity, product_name
+from orders left join products
+using(product_id);
+
+select customer_id, quantity, product_name
+from orders right join products
+using(product_id);
+
+select customer_id, quantity, product_name
+from orders full join products
+using(product_id);
+
+select * from orders;
+-- print number of orders for each customers. 
+select customer_id, count (customer_id) from orders
+group by customer_id;
+
+select * from customers;
+select * from orders;
+commit;
+
+--- update orders 
+update orders set order_id = 6, customer_id = 125 where order_id = 5;
+delete orders where order_id = 6;
+
+select * from orders;
+delete orders where order_id = 4;
+
+
+
+truncate table orders; ---  it will delete the rows from the table the structure will be there
+-- After delete rollback is possible but once you truncate the rollback is not possible
+
+drop table orders; -- it will delete table itself
+
+select * from orders;
+rollback;
  
